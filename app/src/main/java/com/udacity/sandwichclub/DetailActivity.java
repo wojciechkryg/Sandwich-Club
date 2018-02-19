@@ -19,6 +19,11 @@ public class DetailActivity extends AppCompatActivity {
     private static final int DEFAULT_POSITION = -1;
     private static final char NEW_LINE = '\n';
 
+    private TextView originTv;
+    private TextView descriptionTv;
+    private TextView ingredientsTv;
+    private TextView alsoKnownTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
+        initUi();
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
@@ -60,6 +66,13 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
+    private void initUi() {
+        originTv = findViewById(R.id.origin_tv);
+        descriptionTv = findViewById(R.id.description_tv);
+        ingredientsTv = findViewById(R.id.ingredients_tv);
+        alsoKnownTv = findViewById(R.id.also_known_tv);
+    }
+
     private void populateUI(Sandwich sandwich) {
         setupOrigin(sandwich.getPlaceOfOrigin());
         setupDescription(sandwich.getDescription());
@@ -68,24 +81,20 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setupOrigin(String origin) {
-        TextView originTv = findViewById(R.id.origin_tv);
         originTv.setText(origin);
     }
 
     private void setupDescription(String description) {
-        TextView descriptionTv = findViewById(R.id.description_tv);
         descriptionTv.setText(description);
     }
 
     private void setupIngredients(List<String> ingredients) {
-        TextView ingredientsTv = findViewById(R.id.ingredients_tv);
         for (String ingredient : ingredients) {
             ingredientsTv.append(ingredient + NEW_LINE);
         }
     }
 
     private void setupAlsoKnown(List<String> alsoKnownAs) {
-        TextView alsoKnownTv = findViewById(R.id.also_known_tv);
         for (String name : alsoKnownAs) {
             alsoKnownTv.append(name + NEW_LINE);
         }
